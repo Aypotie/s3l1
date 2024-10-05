@@ -10,6 +10,7 @@
 #include "../data_structures/string.hpp"
 #include "../data_structures/dlist.hpp"
 #include "../data_structures/map.hpp"
+#include "../data_structures/avl.hpp"
 
 using namespace std;
 
@@ -228,6 +229,42 @@ Map<string> readMap(string name) {
     file.close();
 
     return map;
+}
+
+AVLTree readTree(string name) {
+    AVLTree tree;
+
+    ifstream file(FILENAME);
+
+    if (!file.is_open()) {
+        throw runtime_error("Error opening file");
+    }
+
+    string line;
+    
+    bool isArray = false;
+    while (getline(file, line)) {
+        if (line == "AvlTree") {
+            isArray = true;
+        }  else if (line == "" && isArray) {
+            break;
+        } else if (isArray) {
+            Vector<string> splittedLine = split(line, ' ');
+
+            if (splittedLine.size() != 2) {
+                continue;
+            }
+
+            if (splittedLine.get(0) == name) {
+                tree.unserialize(splittedLine.get(1));
+                return tree;
+            }
+        }
+    }
+
+    file.close();
+
+    return tree;
 }
 
 #endif

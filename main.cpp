@@ -6,6 +6,7 @@
 #include "menu/queue.hpp"
 #include "menu/dlist.hpp"
 #include "menu/map.hpp"
+#include "menu/avl.hpp"
 
 using namespace std;
 
@@ -46,6 +47,12 @@ int main() {
         } else if (command[0] == 'H') {
             try {
                 mapMenu(splitedStr);
+            } catch (runtime_error& e) {
+                cerr << e.what() << endl;
+            }
+        } else if (command[0] == 'T') {
+            try {
+                avlTreeMenu(splitedStr);
             } catch (runtime_error& e) {
                 cerr << e.what() << endl;
             }
