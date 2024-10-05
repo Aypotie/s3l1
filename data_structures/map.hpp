@@ -8,7 +8,7 @@
 using namespace std;
 
 template <typename T>
-struct CustomMap {
+struct Map {
 private:
     struct KeyVal {
         string key;
@@ -24,7 +24,7 @@ private:
     double loadFactor;
 
 public:
-    CustomMap() {
+    Map() {
         cap = 16;
         len = 0;
         loadFactor = 0.50;
@@ -160,10 +160,24 @@ public:
         data = newMap;
         cap = newcap;
     }
+
+    string join() {
+        string result = "";
+
+        for (int i = 0; i < cap; i++) {
+            KeyVal* current = data[i];
+            while (current != nullptr) {
+                result += current->key + "," + current->value + ";";
+                current = current->next;
+            }
+        }
+        result = result.substr(0, result.size() - 1);
+        return result;
+    }
 };
 
 template <typename T>
-ostream& operator<<(ostream& os, const CustomMap<T>& map) {
+ostream& operator<<(ostream& os, const Map<T>& map) {
     auto data = map.getData();
     for (int i = 0; i < map.getCap(); i++) {
         if (data[i] != nullptr) {

@@ -36,7 +36,7 @@ public:
         cap = newCap;
     }
 
-    void push_back(T value) {
+    void pushBack(T value) {
         if (static_cast<float>(len)/cap >= loadFactor) {
             extend();
         }

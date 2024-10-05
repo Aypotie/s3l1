@@ -1,16 +1,16 @@
-#ifndef QUEUEMENU_H
-#define QUEUEMENU_H
+#ifndef STACKMENU_H
+#define STACKMENU_H
 
-#include "../data_structures/queue.hpp"
+#include "../data_structures/stack.hpp"
 #include "../file/fileread.hpp"
 #include "../file/filewrite.hpp"
 
-const string QUEUE_SECTION = "Queue";
+const string STACK_SECTION = "Stack";
 
-void queueMenu(Vector<string> arguments) {
+void stackMenu(Vector<string> arguments) {
     string command = arguments.get(0);
 
-    if (command == "QPUSH") {
+    if (command == "SPUSH") {
         if (arguments.size() != 3) {
             throw runtime_error("incorrect count of arguments");
         }
@@ -21,26 +21,26 @@ void queueMenu(Vector<string> arguments) {
             throw runtime_error(", shouldn't be in pushed element");
         }
 
-        Queue<string> queue = readQueue(nameArr);
-        queue.enqueue(element);
-        save(QUEUE_SECTION, nameArr, nameArr + " " + join(queue.getData(), ','));
-    } else if (command == "QPOP") {
+        Stack<string> stack = readStack(nameArr);
+        stack.push(element);
+        save(STACK_SECTION, nameArr, nameArr + " " + join(stack.getData(), ','));
+    } else if (command == "SPOP") {
         if (arguments.size() != 2) {
             throw runtime_error("incorrect count of arguments");
         }
         string nameArr = arguments.get(1);
 
-        Queue<string> queue = readQueue(nameArr);
-        cout << "Popped: " << queue.dequeue() << endl;
-        save(QUEUE_SECTION, nameArr, nameArr + " " + join(queue.getData(), ','));
-    } else if (command == "QPRINT") {
+        Stack<string> stack = readStack(nameArr);
+        cout << "Popped: " << stack.pop() << endl;
+        save(STACK_SECTION, nameArr, nameArr + " " + join(stack.getData(), ','));
+    } else if (command == "SPRINT") {
         if (arguments.size() != 2) {
             throw runtime_error("incorrect count of arguments");
         }
         string nameArr = arguments.get(1);
 
-        Queue<string> queue = readQueue(nameArr);
-        cout << queue << endl;
+        Stack<string> stack = readStack(nameArr);
+        cout << stack << endl;
     }
 }
 

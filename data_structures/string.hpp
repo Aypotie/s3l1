@@ -11,11 +11,11 @@ Vector<string> split(string str, char delimiter) {
 
     for (int i = 0; i < str.size(); i++) {
         if(str[i] == delimiter) { // asdsdadsa dasdsad sa ads da sda
-            vec.push_back(str.substr(lastSpace+1, i-lastSpace-1));
+            vec.pushBack(str.substr(lastSpace+1, i-lastSpace-1));
             lastSpace = i;
         }
     }
-    vec.push_back(str.substr(lastSpace+1, str.size()-lastSpace));
+    vec.pushBack(str.substr(lastSpace+1, str.size()-lastSpace));
 
     return vec;
 }

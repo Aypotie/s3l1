@@ -7,13 +7,22 @@
 using namespace std;
 
 template <typename T>
-struct CustomStack {
+struct Stack {
 private:
-    CustomVector<T> stack;
+    Vector<T> stack;
+    int len;
 
 public:
-    CustomVector<T> getData() const {
+    Stack() {
+        len = 0;
+    }
+    
+    Vector<T> getData() const {
         return stack;
+    }
+
+    int size() {
+        return len;
     }
 
     void push(T val) {
@@ -21,11 +30,11 @@ public:
     }
 
     T pop() {
-        if (stack.getLen() == 0) {
+        if (stack.size() == 0) {
             throw runtime_error("Stack is empty");
         }
 
-        int outIndex = stack.getLen() - 1;
+        int outIndex = stack.size() - 1;
         T popped = stack.get(outIndex);
         stack.remove(outIndex);
         
@@ -34,10 +43,10 @@ public:
 };
 
 template <typename T>
-ostream& operator<<(ostream& os, const CustomStack<T>& stack) {
-    CustomVector<T> data = stack.getData();
+ostream& operator<<(ostream& os, const Stack<T>& stack) {
+    Vector<T> data = stack.getData();
 
-    for (int i = data.getLen() - 1; i >= 0; i--) {
+    for (int i = data.size() - 1; i >= 0; i--) {
         os << data.get(i) << endl;
     }
 

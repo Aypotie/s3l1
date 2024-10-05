@@ -12,7 +12,12 @@ struct Queue {
 private:
     Vector<T> queue;
     int len;
+
 public:
+    Queue() {
+        len = 0;
+    }
+    
     Vector<T> getData() const {
         return queue;
     }
@@ -22,7 +27,7 @@ public:
     }
 
     void enqueue(T val) {
-        queue.push_back(val);
+        queue.pushBack(val);
     }
 
     T dequeue() {

@@ -2,6 +2,7 @@
 #define DLIST_H
 
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -15,29 +16,54 @@ struct DNode {
 };
 
 template <typename T>
-struct DLinkedList {
+struct Dlist {
 private:
     int len;
 
 public:
     DNode<T>* head;
 
-    DLinkedList() {
+    Dlist() {
         head = nullptr;
         len = 0;
     }
-    // ~DLinkedList() {
-    //     while (head!= nullptr) {
+    
+    // ~Dlist() {
+    //     while (head != nullptr) {
     //         DNode<T>* oldHead = head;
     //         head = head->next;
     //         delete oldHead;
+    //         len--;
     //     }
     // }
 
+    int size() const {
+        return len;
+    }
+
+    T get(int index) const {
+        if (index < 0 || index >= len) {
+            throw runtime_error("Index out of bounds");
+        }
+
+        DNode<T>* current = head;
+        int c = 0;
+        while (c != index && current != nullptr) {
+            current = current->next;
+            c++;
+        }
+        return current->value;
+    }
+
     void pushForward(DNode<T>* node) {
-        DNode<T>* oldHead = head;
-        head = node;
-        node->next = oldHead;
+        if (head == nullptr) {
+            head = node;
+        } else {
+            DNode<T>* oldHead = head;
+            head = node;
+            node->next = oldHead;
+            oldHead->prev = node;
+        }
         len++;
     }
 
@@ -45,15 +71,14 @@ public:
         DNode<T>* node = new DNode<T>(value);
         if (head == nullptr) {
             head = node;
-            return;
+        } else {
+            DNode<T>* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = node;
+            node->prev = current;
         }
-
-        DNode<T>* current = head;
-        while (current->next!= nullptr) {
-            current = current->next;
-        }
-        current->next = node;
-        node->prev = current;
         len++;
     }
 
@@ -64,6 +89,9 @@ public:
 
         DNode<T>* oldHead = head;
         head = head->next;
+        if (head != nullptr) {
+            head->prev = nullptr;
+        }
         delete oldHead;
         len--;
     }
@@ -73,11 +101,17 @@ public:
             throw runtime_error("List is empty");
         }
 
-        DNode<T>* current = head;
-        while (current->next != nullptr) {
-            current = current->next;
+        if (head->next == nullptr) { // Единственный элемент
+            delete head;
+            head = nullptr;
+        } else {
+            DNode<T>* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->prev->next = nullptr;
+            delete current;
         }
-        delete current;
         len--;
     }
 
@@ -87,13 +121,13 @@ public:
         while (current != nullptr) {
             if (current->value == value) {
                 DNode<T>* toDelete = current;
-                if (current->prev != nullptr) { // node not first
+                if (current->prev != nullptr) { // Узел не первый
                     current->prev->next = current->next;
-                } else { // first node
+                } else { // Первый узел
                     head = current->next;
                 }
 
-                if (current->next != nullptr) { // node not last
+                if (current->next != nullptr) { // Узел не последний
                     current->next->prev = current->prev;
                 }
 
@@ -116,13 +150,28 @@ public:
         }
         return nullptr;
     }
+
+    string join(char delimiter) {
+        string result;
+        DNode<string>* current = head;
+
+        while (current != nullptr) {
+            result += current->value;
+            if (current->next != nullptr) {
+                result += delimiter;
+            }
+            current = current->next;
+        }
+
+        return result;
+    }
 };
 
 template <typename T>
-ostream& operator<<(ostream& os, const DLinkedList<T>& list) {
+ostream& operator<<(ostream& os, const Dlist<T>& list) {
     auto head = list.head;
     while (head != nullptr) {
-        cout << head->value << endl;
+        os << head->value << " ";
         head = head->next;
     }
     return os;
