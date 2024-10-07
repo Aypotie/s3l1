@@ -140,15 +140,17 @@ public:
         }
     }
 
-    DNode<T>* findByValue(const T& value) {
+    int findByValue(const T& value) {
         DNode<T>* current = head;
+        int index = 0;
         while (current != nullptr) {
             if (current->value == value) {
-                return current;
+                return index;
             }
             current = current->next;
+            index++;
         }
-        return nullptr;
+        return -1;
     }
 
     string join(char delimiter) {
