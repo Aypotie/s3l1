@@ -73,6 +73,14 @@ public:
         data[index] = value;
     }
 
+    void reverse() {
+        for (int i = 0; i < len / 2; i++) {
+            T temp = data[i];
+            data[i] = data[len - i - 1];
+            data[len - i - 1] = temp;
+        }
+    }
+
     T get(int index) const {
         if (index < 0 || index >= len) {
             throw invalid_argument("invalid index");

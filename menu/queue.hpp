@@ -23,7 +23,7 @@ void queueMenu(Vector<string> arguments) {
 
         Queue<string> queue = readQueue(nameArr);
         queue.enqueue(element);
-        save(QUEUE_SECTION, nameArr, nameArr + " " + join(queue.getData(), ','));
+        save(QUEUE_SECTION, nameArr, nameArr + " " + queue.data().join(','));
     } else if (command == "QPOP") {
         if (arguments.size() != 2) {
             throw runtime_error("incorrect count of arguments");
@@ -32,7 +32,7 @@ void queueMenu(Vector<string> arguments) {
 
         Queue<string> queue = readQueue(nameArr);
         cout << "Popped: " << queue.dequeue() << endl;
-        save(QUEUE_SECTION, nameArr, nameArr + " " + join(queue.getData(), ','));
+        save(QUEUE_SECTION, nameArr, nameArr + " " + queue.data().join(','));
     } else if (command == "QPRINT") {
         if (arguments.size() != 2) {
             throw runtime_error("incorrect count of arguments");

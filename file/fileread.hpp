@@ -123,6 +123,7 @@ Stack<string> readStack(string name) {
 
             if (splittedLine.get(0) == name) {
                 Vector<string> array = split(splittedLine.get(1), ','); // делим по запятым второй аргумент
+                array.reverse();
                 if (array.size() == 1 && array.get(0) == "") { // при пустой строке создаётся массив с пустой строкой, надо удалить эту строку, чтоб сделать пустой массив
                     array.remove(0);
                 }

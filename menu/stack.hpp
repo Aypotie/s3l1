@@ -23,7 +23,7 @@ void stackMenu(Vector<string> arguments) {
 
         Stack<string> stack = readStack(nameArr);
         stack.push(element);
-        save(STACK_SECTION, nameArr, nameArr + " " + join(stack.getData(), ','));
+        save(STACK_SECTION, nameArr, nameArr + " " + stack.data().join(','));
     } else if (command == "SPOP") {
         if (arguments.size() != 2) {
             throw runtime_error("incorrect count of arguments");
@@ -32,7 +32,7 @@ void stackMenu(Vector<string> arguments) {
 
         Stack<string> stack = readStack(nameArr);
         cout << "Popped: " << stack.pop() << endl;
-        save(STACK_SECTION, nameArr, nameArr + " " + join(stack.getData(), ','));
+        save(STACK_SECTION, nameArr, nameArr + " " + stack.data().join(','));
     } else if (command == "SPRINT") {
         if (arguments.size() != 2) {
             throw runtime_error("incorrect count of arguments");

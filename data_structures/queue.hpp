@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <iostream>
-#include "vector.hpp"
+#include "slist.hpp"
 
 using namespace std;
 
@@ -10,33 +10,30 @@ using namespace std;
 template <typename T>
 struct Queue {
 private:
-    Vector<T> queue;
-    int len;
+    SList<T> list;
 
 public:
-    Queue() {
-        len = 0;
-    }
+    Queue() {}
     
-    Vector<T> getData() const {
-        return queue;
+    SList<T> data() const {
+        return list;
     }
 
-    int size() {
-        return len;
+    int size() const {
+        return list.size();
     }
 
-    void enqueue(T val) {
-        queue.pushBack(val);
+    void enqueue(const T& val) {
+        list.pushBack(val);
     }
 
     T dequeue() {
-        if (queue.size() == 0) {
+        if (size() == 0) {
             throw runtime_error("Queue is empty");
         }
 
-        T dequeued = queue.get(0);
-        queue.remove(0);
+        T dequeued = list.head->value;
+        list.removeForward();
 
         return dequeued;
     }
@@ -44,12 +41,7 @@ public:
 
 template <typename T>
 ostream& operator<<(ostream& os, const Queue<T>& queue) {
-    Vector<T> data = queue.getData();
-
-    for (int i = 0; i < data.size(); i++) {
-        os << data.get(i) << " ";
-    }
-
+    os << queue.data() << endl;
     return os;
 }
 
