@@ -75,11 +75,17 @@ public:
             throw runtime_error("List is empty");
         }
 
-        SNode<T>* current = head;
-        while (current->next != nullptr) {
-            current = current->next;
+        if (head->next == nullptr) { // Если в списке только один элемент
+            delete head;
+            head = nullptr;
+        } else {
+            SNode<T>* current = head;
+            while (current->next->next != nullptr) {
+                current = current->next; // Находим предпоследний узел
+            }
+            delete current->next; // Удаляем последний узел
+            current->next = nullptr; // Обнуляем указатель на следующий узел
         }
-        delete current;
         len--;
     }
 
