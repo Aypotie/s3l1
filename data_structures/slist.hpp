@@ -105,15 +105,17 @@ public:
         }
     }
 
-    SNode<T>* findByValue(const T& value) {
+    int findByValue(const T& value) {
         SNode<T>* current = head;
+        int index = 0;
         while (current != nullptr) {
             if (current->value == value) {
-                return current;
+                return index;
             }
             current = current->next;
+            index++;
         }
-        return nullptr;
+        return -1;
     }
 
     string join(char delimiter) {
@@ -130,6 +132,19 @@ public:
 
         return result;
     }
+    T get(int index) const {
+        if (index < 0 || index >= len) {
+            throw runtime_error("Index out of bounds");
+        }
+
+        SNode<T>* current = head;
+        int c = 0;
+        while (c != index && current != nullptr) {
+            current = current->next;
+            c++;
+        }
+        return current->value;
+    }   
 };
 
 template <typename T>

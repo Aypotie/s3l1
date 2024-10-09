@@ -5,6 +5,7 @@
 #include "menu/stack.hpp"
 #include "menu/queue.hpp"
 #include "menu/dlist.hpp"
+#include "menu/slist.hpp"
 #include "menu/map.hpp"
 #include "menu/avl.hpp"
 
@@ -23,6 +24,12 @@ int main() {
         if (command.substr(0, 2) == "DL") {
             try {
                 dlistMenu(splitedStr);
+            } catch (runtime_error& e) {
+                cerr << e.what() << endl;
+            }
+        } else if (command.substr(0, 2) == "SL") {
+            try {
+                slistMenu(splitedStr);
             } catch (runtime_error& e) {
                 cerr << e.what() << endl;
             }

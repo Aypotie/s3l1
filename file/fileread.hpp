@@ -9,6 +9,7 @@
 #include "../data_structures/stack.hpp"
 #include "../data_structures/string.hpp"
 #include "../data_structures/dlist.hpp"
+#include "../data_structures/slist.hpp"
 #include "../data_structures/map.hpp"
 #include "../data_structures/avl.hpp"
 
@@ -180,6 +181,48 @@ Dlist<string> readDlist(string name) {
     file.close();
 
     return dlist;
+}
+
+SList<string> readSlist(string name) {
+    SList<string> slist;
+
+    ifstream file(FILENAME);
+
+    if (!file.is_open()) {
+        throw runtime_error("Error opening file");
+    }
+
+    string line;
+    
+    bool isArray = false;
+    while (getline(file, line)) {
+        if (line == "Slist") {
+            isArray = true;
+        } else if (line == "" && isArray) {
+            break;
+        } else if (isArray) {
+            Vector<string> splittedLine = split(line, ' ');
+
+            if (splittedLine.size() != 2) {
+                continue;
+            }
+
+            if (splittedLine.get(0) == name) {
+                Vector<string> array = split(splittedLine.get(1), ','); // делим по запятым второй аргумент
+                if (array.size() == 1 && array.get(0) == "") { // при пустой строке создаётся массив с пустой строкой, надо удалить эту строку, чтоб сделать пустой массив
+                    array.remove(0);
+                }
+                for (int i = 0; i < array.size(); i++) {
+                    slist.pushBack(array.get(i));
+                }
+                return slist;
+            }
+        }
+    }
+
+    file.close();
+
+    return slist;
 }
 
 Map<string> readMap(string name) {
