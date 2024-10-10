@@ -48,7 +48,21 @@ void avlTreeMenu(Vector<string> arguments) {
 
         AVLTree tree = readTree(name);
         cout << tree << endl;
+    } else if (command == "TFIND") {
+        if (arguments.size() != 3) {
+            throw runtime_error("incorrect count of arguments");
+        }
+        string name = arguments.get(1);
+        int elem;
+        elem = stoi(arguments.get(2));
+
+        AVLTree tree = readTree(name);
+
+        if(tree.find(elem)){
+            cout << "true" << endl;
+        } else {
+            cout << "false" << endl;
+        }
     }
 }
-
 #endif

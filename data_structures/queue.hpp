@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <iostream>
-#include "slist.hpp"
+#include "dlist.hpp"
 
 using namespace std;
 
@@ -10,12 +10,12 @@ using namespace std;
 template <typename T>
 struct Queue {
 private:
-    SList<T> list;
+    Dlist<T> list;
 
 public:
     Queue() {}
     
-    SList<T> data() const {
+    Dlist<T> data() const {
         return list;
     }
 

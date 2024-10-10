@@ -18,7 +18,7 @@ private:
         KeyVal(string k, T v) : key(k), value(v), next(nullptr) {}
     };
 
-    KeyVal** data;
+    KeyVal** data;// указатель на массив указателей
     int cap;
     int len;
     double loadFactor;
@@ -61,14 +61,14 @@ public:
             rehash(cap * 2);
         }
 
-        uint32_t index = hash(key) % cap;
+        uint32_t index = hash(key) % cap; //Вычисляется индекс бакета с помощью хэш-функции
 
         if (data[index] == nullptr) { // бакета нет
-            data[index] = new KeyVal(key, value);
+            data[index] = new KeyVal(key, value);// создается новый элемент
         } else { // бакет есть -> добавляем в него
             KeyVal* current = data[index];
             if (current->key == key) {
-                current->value = value;
+                current->value = value; // обновление значения
                 return;
             }
 
@@ -80,7 +80,7 @@ public:
                 current = current->next;
             }
 
-            current->next = new KeyVal(key, value);
+            current->next = new KeyVal(key, value); //новый элемент
         }
 
         len++;
@@ -128,7 +128,7 @@ public:
     }
 
     void rehash(int newcap) {
-        KeyVal** newMap = new KeyVal*[newcap];
+        KeyVal** newMap = new KeyVal*[newcap]; // новый массив бакетов увеличенного размера
 
         for (int i = 0; i < newcap; i++) {
             newMap[i] = nullptr;

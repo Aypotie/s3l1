@@ -10,7 +10,7 @@ Vector<string> split(string str, char delimiter) {
     int lastSpace = -1;
 
     for (int i = 0; i < str.size(); i++) {
-        if(str[i] == delimiter) { // asdsdadsa dasdsad sa ads da sda
+        if(str[i] == delimiter) {
             vec.pushBack(str.substr(lastSpace+1, i-lastSpace-1));
             lastSpace = i;
         }

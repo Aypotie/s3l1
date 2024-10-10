@@ -35,7 +35,7 @@ void dlistMenu(Vector<string> arguments) {
         }
 
         Dlist<string> dlist = readDlist(nameArr);
-        dlist.pushForward(new DNode<string>(element));
+        dlist.pushForward(element);
         save(DLIST_SECTION, nameArr, nameArr + " " + dlist.join(','));
     } else if (command == "DLDELBACK") {
         if (arguments.size() != 2) {

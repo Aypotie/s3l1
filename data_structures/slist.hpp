@@ -25,13 +25,6 @@ public:
         head = nullptr;
         len = 0;
     }
-    // ~LinkedList() {
-    //     while (head!= nullptr) {
-    //         SNode<T>* oldHead = head;
-    //         head = head->next;
-    //         delete oldHead;
-    //     }
-    // }
 
     int size() const {
         return len;

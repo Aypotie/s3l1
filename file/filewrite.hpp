@@ -10,8 +10,8 @@ void save(string section, string name, string writeline) {
     }
 
     Vector<string> fileLines;  // Вектор для хранения строк файла
-    string line;
-    bool isArraySection = false;
+    string line; //переменная для хранения текущей строки файла при чтении
+    bool isArraySection = false; // флаг для отслеживания, находимся ли мы в нужной секции
     bool foundArray = false;
 
     while (getline(file, line)) {

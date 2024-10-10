@@ -110,7 +110,6 @@ struct AVLTree {
         } else if (value > node->value) {
             node->right = insert(node->right, value);
         } else {
-            // Дубликаты не допускаются
             return node;
         }
 
