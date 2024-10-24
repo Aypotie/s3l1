@@ -8,7 +8,12 @@ Stack
 a 1
 b asd
 
-Queue 
+Queue
+
+Set
+a 1,7
+b 342
+c 3
 
 Map
 

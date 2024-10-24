@@ -8,6 +8,7 @@
 #include "menu/slist.hpp"
 #include "menu/map.hpp"
 #include "menu/avl.hpp"
+#include "menu/set.hpp"
 
 using namespace std;
 
@@ -21,7 +22,13 @@ int main() {
         Vector<string> splitedStr = split(str, ' ');
         string command = splitedStr.get(0);
 
-        if (command.substr(0, 2) == "DL") {
+        if (command.substr(0, 3) == "SET") {
+            try {
+                setMenu(splitedStr);
+            } catch (runtime_error& e) {
+                cerr << e.what() << endl;
+            }
+        } else if (command.substr(0, 2) == "DL") {
             try {
                 dlistMenu(splitedStr);
             } catch (runtime_error& e) {
